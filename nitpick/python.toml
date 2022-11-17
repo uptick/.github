@@ -20,7 +20,7 @@ force_exclude = '''
 '''
 
 ["setup.cfg".flake8]
-ignore = "E203"
+ignore = "E203,D202,W503"
 max-line-length = 88
 exclude = "node_modules"
 
