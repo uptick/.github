@@ -27,7 +27,7 @@ exclude = "node_modules"
 ["setup.cfg".isort]
 profile = "black"
 known_django = "django"
-sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,PANDAS,FIRSTPARTY,LOCALFOLDER"
+sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 
 extra_standard_library = "arrow"
 multi_line_output = 3
