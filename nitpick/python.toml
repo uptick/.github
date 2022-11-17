@@ -130,8 +130,12 @@ additional_dependencies = [
 
 # MYPY
 [[".pre-commit-config.yaml".repos]]
-repo = "https://github.com/pre-commit/mirrors-mypy"
+repo = "local"
 
 [[".pre-commit-config.yaml".repos.hooks]]
 id = "mypy"
 args = ["--show-error-codes"]
+name = "mypy"
+entry = "mypy"
+require_serial = true
+language = "python"
