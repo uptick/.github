@@ -76,16 +76,16 @@ on:
         type: boolean
         default: true
 
-      # Slack error settings # TODO
-      slack-on-error:
-        description: "Emit"
+      # Slack error settings
+      shame-on-error:
+        description: "Create a slack message in a channel mapped"
         type: boolean
-        default: false
+        default: true
 
-      praise-on-fix:
-        description: "Emit"
-        type: boolean
-        default: false
+      slack-channel:
+        description: "Channel to emit slack error messages to. Leave default for default mappings."
+        type: string
+        default: ""
 
       # CI command
       command:
@@ -104,12 +104,13 @@ on:
         type: string
         default: "arn:aws:iam::305686791668:role/default-github-actions-ci-role"
 
+    secrets:
+      SLACK_TOKEN:
+        description: "Slack API Token. Used to get the slack user for blaming AND to create a message in channel"
+        required: true
+
 env:
   PYTHONUNBUFFERED: 1
-
-    # secrets:
-    #   envPAT:
-    #     required: true
 
 
 permissions:
@@ -148,6 +149,12 @@ jobs:
         aws-region: ap-southeast-2
 
 
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        # TODO: Configure fetch-depth?
+        fetch-depth: 2
+
     ### PYTHON AND POETRY STUFF
     #
     - name: Install Python
@@ -155,12 +162,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ inputs.python-version }}
-
-    - name: Checkout Code
-      uses: actions/checkout@v3
-      with:
-        # TODO: Configure fetch-depth?
-        fetch-depth: 2
 
     - name: Setup and Configure Poetry
       if: inputs.poetry
@@ -227,3 +228,11 @@ jobs:
       shell: bash
       run: |
         ${{ inputs.command }}
+
+    - name: Extract Slack userid
+      if:   (startsWith(env.BRANCH_NAME, 'release') || startsWith(env.BRANCH_NAME, 'develop') || startsWith(env.BRANCH_NAME, 'main')) && inputs.shame-on-error && failure()
+      shell: bash
+      env:
+        SLACK_TOKEN: ${{ inputs.SLACK_TOKEN }}
+      run: |
+        echo "SLACK_USER_ID=$(python3 scripts/get_slack_user.py)" >> $GITHUB_ENV
