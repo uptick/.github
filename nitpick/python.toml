@@ -1,0 +1,143 @@
+# `nitpick` specific configuration.
+# `nitpick` ensures that you have the same configuration
+# in your own project.
+
+# Make sure to install it with:
+# `pip install nitpick`
+
+# - Sets up flake8
+# - Sets up isort
+# - Sets up black
+# - Sets up pyclean
+
+["pyproject.toml".tool.black]
+target-version = ['py310']
+line-length = 120
+include = '\.pyi?$'
+preview = true
+force_exclude = '''
+(
+  /(
+    | migrations
+  )/
+  | urls\.py
+)
+'''
+
+["setup.cfg".flake8]
+ignore = "E203"
+max-line-length = 88
+exclude = "node_modules"
+
+["setup.cfg".isort]
+profile = "black"
+known_django = "django"
+sections = "FUTURE"
+extra_standard_library = "arrow"
+multi_line_output = 3
+line_length = 88
+include_trailing_comma = true
+
+["setup.cfg".mypy]
+# No untyped functions. Everything must be typed including returns.
+disallow_untyped_defs = true
+
+# Follow imports for type information but do not raise an error unless
+# the file is explicitly type checked
+# Valid values:skip/silent/normal/error.
+follow_imports = "silent"
+
+# Untyped imports are not imported as Any
+disallow_any_unimported = true
+
+# Allow imports to be untyped
+# Phase 2: Once we have typed enough we will set to False and start requiring our 3rd party types to have types
+ignore_missing_imports = true
+
+# Untyped decorators will make a function untyped. This enforces decorators to be typed correctly.
+disallow_untyped_decorators = true
+disallow_untyped_calls = true
+
+# Ensure even untyped functions are type checked
+check_untyped_defs = true
+
+strict_optional = true
+strict_equality = true
+
+# This disallows automatic reexporting after importing a module.
+implicit_reexport = true
+
+# We have to specify `Optional`
+no_implicit_optional = true
+
+# We want to see the error code
+show_error_codes = true
+
+# Warnings
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unreachable = true
+warn_no_return = true
+warn_return_any = true
+
+##### EXTRA MYPY CONFIGURATION
+##should live in mypy.ini. EG: django settings
+
+
+# We can enforce files to exist with the below as well
+[nitpick.files.present]
+"mypy.ini" = "Set up mypy configuration overides in mypy.ini"
+
+
+###### Precommits
+# PYCLN
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/hadialqattan/pycln"
+rev = "v2.1.1"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "pycln"
+args = ["--all"]
+
+# BLACK
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/psf/black"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "black"
+
+# ISORT
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/PyCQA/isort"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "isort"
+
+# FLAKE8
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/PyCQA/flake8"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "flake8"
+additional_dependencies = [
+    "flake8-blind-except",
+    "flake8-bugbear",
+    "flake8-comprehensions",
+    "flake8-debugger",
+    "flake8-docstrings",
+    "flake8-isort",
+    "flake8-polyfill",
+    "flake8-pytest",
+    "flake8-quotes",
+    "flake8-typing-imports",
+    "yesqa",
+]
+
+# MYPY
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/pre-commit/mirrors-mypy"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "mypy"
+args = ["--show-error-codes"]
