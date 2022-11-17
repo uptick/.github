@@ -7,7 +7,7 @@
 
 ["pyproject.toml".tool.black]
 target-version = ['py310']
-line-length = 88
+line-length = 120
 include = '\.pyi?$'
 preview = true
 force_exclude = '''
@@ -21,16 +21,17 @@ force_exclude = '''
 
 ["setup.cfg".flake8]
 ignore = "E203,D202,W503"
-max-line-length = 88
+max-line-length = 120
 exclude = "node_modules"
 
 ["setup.cfg".isort]
 profile = "black"
 known_django = "django"
-sections = "FUTURE"
+sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,PANDAS,FIRSTPARTY,LOCALFOLDER"
+
 extra_standard_library = "arrow"
 multi_line_output = 3
-line_length = 88
+line_length = 120
 include_trailing_comma = true
 
 ["setup.cfg".mypy]
@@ -116,15 +117,15 @@ repo = "https://github.com/PyCQA/flake8"
 [[".pre-commit-config.yaml".repos.hooks]]
 id = "flake8"
 additional_dependencies = [
-    "flake8-blind-except",
-    "flake8-bugbear",
-    "flake8-comprehensions",
-    "flake8-debugger",
-    "flake8-isort",
-    "flake8-polyfill",
-    "flake8-pytest",
-    "flake8-typing-imports",
-    "yesqa",
+  "flake8-blind-except",
+  "flake8-bugbear",
+  "flake8-comprehensions",
+  "flake8-debugger",
+  "flake8-isort",
+  "flake8-polyfill",
+  "flake8-pytest",
+  "flake8-typing-imports",
+  "yesqa",
 ]
 
 # MYPY
