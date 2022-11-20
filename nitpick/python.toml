@@ -120,12 +120,6 @@ additional_dependencies = [
   "flake8-blind-except",
   "flake8-bugbear",
   "flake8-comprehensions",
-  "flake8-debugger",
-  "flake8-isort",
-  "flake8-polyfill",
-  "flake8-pytest",
-  "flake8-typing-imports",
-  "yesqa",
 ]
 
 # MYPY
@@ -136,6 +130,7 @@ repo = "local"
 id = "mypy"
 args = ["--show-error-codes"]
 name = "mypy"
-entry = "mypy"
+files = "^.*\\.(py)$"
+entry = "poetry run mypy"
 require_serial = true
 language = "python"
