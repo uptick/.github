@@ -94,11 +94,13 @@ rev = "v2.1.1"
 
 [[".pre-commit-config.yaml".repos.hooks]]
 id = "pycln"
+rev = "latest"
 args = ["--all"]
 
 # BLACK
 [[".pre-commit-config.yaml".repos]]
 repo = "https://github.com/psf/black"
+rev = "latest"
 
 [[".pre-commit-config.yaml".repos.hooks]]
 id = "black"
@@ -106,6 +108,7 @@ id = "black"
 # ISORT
 [[".pre-commit-config.yaml".repos]]
 repo = "https://github.com/PyCQA/isort"
+rev = "latest"
 
 [[".pre-commit-config.yaml".repos.hooks]]
 id = "isort"
@@ -113,6 +116,7 @@ id = "isort"
 # FLAKE8
 [[".pre-commit-config.yaml".repos]]
 repo = "https://github.com/PyCQA/flake8"
+rev = "latest"
 
 [[".pre-commit-config.yaml".repos.hooks]]
 id = "flake8"
