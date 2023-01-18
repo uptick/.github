@@ -77,14 +77,6 @@ warn_unreachable = true
 warn_no_return = true
 warn_return_any = true
 
-##### EXTRA MYPY CONFIGURATION
-##should live in mypy.ini. EG: django settings
-
-
-# We can enforce files to exist with the below as well
-[nitpick.files.present]
-"mypy.ini" = "Set up mypy configuration overides in mypy.ini"
-
 
 ###### Precommits
 
