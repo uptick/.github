@@ -86,7 +86,7 @@ repo = "https://github.com/charliermarsh/ruff-pre-commit"
 rev = "latest"
 
 [[".pre-commit-config.yaml".repos.hooks]]
-id = "ruff-fix"
+id = "ruff"
 args = ["--select", "F401", "--fix"]
 
 # F401 Remove unused imports
@@ -95,7 +95,7 @@ repo = "https://github.com/charliermarsh/ruff-pre-commit"
 rev = "latest"
 
 [[".pre-commit-config.yaml".repos.hooks]]
-id = "ruff-check"
+id = "ruff"
 
 # BLACK
 [[".pre-commit-config.yaml".repos]]
