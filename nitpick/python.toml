@@ -87,15 +87,23 @@ warn_return_any = true
 
 
 ###### Precommits
-# PYCLN
+
+## RUFF
 [[".pre-commit-config.yaml".repos]]
-repo = "https://github.com/hadialqattan/pycln"
-rev = "v2.1.1"
+repo = "https://github.com/charliermarsh/ruff-pre-commit"
+rev = "latest"
 
 [[".pre-commit-config.yaml".repos.hooks]]
-id = "pycln"
+id = "ruff-fix"
+args = ["--select", "F401", "--fix"]
+
+# F401 Remove unused imports
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/charliermarsh/ruff-pre-commit"
 rev = "latest"
-args = ["--all"]
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "ruff-check"
 
 # BLACK
 [[".pre-commit-config.yaml".repos]]
@@ -112,19 +120,6 @@ rev = "latest"
 
 [[".pre-commit-config.yaml".repos.hooks]]
 id = "isort"
-
-# FLAKE8
-[[".pre-commit-config.yaml".repos]]
-repo = "https://github.com/PyCQA/flake8"
-rev = "latest"
-
-[[".pre-commit-config.yaml".repos.hooks]]
-id = "flake8"
-additional_dependencies = [
-  "flake8-blind-except",
-  "flake8-bugbear",
-  "flake8-comprehensions",
-]
 
 # MYPY
 [[".pre-commit-config.yaml".repos]]
